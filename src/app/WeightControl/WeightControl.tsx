@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { EventEmitter } from '@angular/core';
+// import { WeightControlHelper } from '../weight-control-helper/WeightControlHelper';
 
 class Props {
   // TODO demo1-reactprops
@@ -21,6 +22,7 @@ export class WeightControl extends React.Component<Props, State> {
     return <div>
       <p>Current Calorie: {this.state.calorie}</p>
       <p><button onClick={() => this.eat()}>Eat a lot</button></p>
+      {/* TODO demo2-use-ng-helper */}
     </div>;
   }
 }
