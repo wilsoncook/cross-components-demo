@@ -12,8 +12,14 @@ import { EventEmitter } from '@angular/core';
 })
 
 export class WeightControlHelperComponent {
-  @Input() calorie: number;
+  @Input() calorie: number = 0;
   @Output() warning = new EventEmitter<string>();
   
-  // TODO demo2-helper-warning-logic
+  constructor() {
+    setInterval(() => {
+      if (this.calorie >= 1000) {
+        this.warning.emit('Stop eating or die!');
+      }
+    }, 1000);
+  }
 }
