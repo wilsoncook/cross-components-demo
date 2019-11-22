@@ -10,6 +10,8 @@ class State {
 }
 
 export class WeightControl extends React.Component<Props, State> {
+  state = new State();
+
   eat() {
     this.setState({ calorie: this.state.calorie + 400 });
     // TODO demo1-ifoverload
