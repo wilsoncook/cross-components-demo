@@ -6,7 +6,7 @@ class Props {
 }
 
 class State {
-  calorie: number;
+  calorie: number = 0;
 }
 
 export class WeightControl extends React.Component<Props, State> {
