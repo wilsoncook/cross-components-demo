@@ -16,11 +16,4 @@ export class WeightControlHelperComponent {
   @Output() warning = new EventEmitter<string>();
   
   // TODO demo2-helper-warning-logic
-  constructor() {
-    setInterval(() => {
-      if (this.calorie >= 1000) {
-        this.warning.emit('Stop eating or die!');
-      }
-    }, 1000);
-  }
 }
