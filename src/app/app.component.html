@@ -1,3 +1,7 @@
 <!-- <weight-control></weight-control> -->
 
-<!-- TODO: demo1-tagwithoverload -->
+<weight-control [amount]="200" (overload)="overloadCalorie = $event"></weight-control>
+
+<p *ngIf="overloadCalorie">
+  NOTE! Overload Calorie: {{ overloadCalorie }}
+</p>

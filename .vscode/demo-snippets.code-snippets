@@ -1,0 +1,87 @@
+{
+	// Place your cross-components workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"Create demo1 weight-control.component.ts": {
+		"prefix": "demo1-ngcomponent",
+		"body": ["import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/core';", "import * as React from 'react';", "import * as ReactDOM from 'react-dom';", "import { WeightControl } from './WeightControl';", "", "@Component({", "  selector: 'weight-control',", "  template: ''", "})", "", "export class WeightControlComponent {", "  // TODO demo1-ngprops", "", "  constructor(private elementRef: ElementRef) {}", "", "  ngAfterViewInit() {", "    // TODO demo1-afterviewinit", "  }", "}"]
+	},
+	"Write demo1 ReactDOM.render inside ngAfterViewInit": {
+		"prefix": "demo1-afterviewinit",
+		"body": [
+			"ReactDOM.render(",
+      "  React.createElement(WeightControl),",
+      "  this.elementRef.nativeElement",
+    	");"
+		]
+	},
+	"Write demo1 react Props definition": {
+		"prefix": "demo1-reactprops",
+		"body": ["amount: number = 400;", "overload = new EventEmitter<number>();"]
+	},
+	"Write demo1 ng props definition": {
+		"prefix": "demo1-ngprops",
+		"body": [
+			"@Input() amount: number;",
+  		"@Output() overload = new EventEmitter<number>();"
+		]
+	},
+	"Write demo1 if overload statement": {
+		"prefix": "demo1-ifoverload",
+		"body": ["if (this.state.calorie >= 2000) {", "  this.props.overload.emit(this.state.calorie);", "}"]
+	},
+	"Write demo1 <weight-control> tag with overload event": {
+		"prefix": "demo1-tagwithoverload",
+		"body": ["<weight-control [amount]=\"200\" (overload)=\"overloadCalorie = $$event\"></weight-control>", "", "<p *ngIf=\"overloadCalorie\">", "  NOTE! Overload Calorie: {{ overloadCalorie }}", "</p>"]
+	},
+	"Write demo2 component init inside contructor": {
+		"prefix": "demo2-constructor",
+		"body": ["this.componentDef = this.ngComponentClass[ɵNG_COMPONENT_DEF];", "this.selector = this.componentDef.selectors[0][0] as string;"]
+	},
+	"Write demo2 componentDidMount()": {
+		"prefix": "demo2-didmount",
+		"body": ["componentDidMount() {", "  this.ngComponent = ɵrenderComponent(this.ngComponentClass);", "", "  // TODO demo2-outputs", "}"]
+	},
+	"Write demo2 outputs subscribe": {
+		"prefix": "demo2-outputs",
+		"body": ["this.subscriptions.push(", "  ...Object.keys(this.componentDef.outputs).map(key => {", "    return this.ngComponent[key].subscribe(event => {", "      if (typeof this.props[key] === 'function') {", "        this.props[key](event);", "      }", "    });", "  })", ");"]
+	},
+	"Write demo2 outputs unsubscribe by componentWillUnmount": {
+		"prefix": "demo2-outputs-unsubscribe",
+		"body": ["componentWillUnmount() {", "  this.subscriptions.forEach(subscription => subscription.unsubscribe());", "}"]
+	},
+	"Write demo2 componentDidUpdate and inputs change detection": {
+		"prefix": "demo2-didupdate-inputs",
+		"body": ["componentDidUpdate() {","  if (this.ngComponent) {","    const changes: SimpleChanges = {};","    Object.keys(this.props).forEach(key => {","      if (Object.keys(this.componentDef.inputs).includes(key) && this.ngComponent[key] !== this.props[key]) {","        changes[key] = new SimpleChange(this.componentDef[key], this.props[key], !this.changedProps.has(key));","        this.changedProps.add(key);","        this.ngComponent[key] = this.props[key];","      }","    });","","    if (typeof this.ngComponent['ngOnChanges'] === 'function') {","      this.ngComponent['ngOnChanges'](changes);","    }","","    // ɵmarkDirty(this.ngComponent);","  }","}"]
+	},
+	"Write demo2 render()": {
+		"prefix": "demo2-render",
+		"body": ["render() {","  const Selector = this.selector;","  return <Selector></Selector>;","}"]
+	},
+	"Create demo2 WeightControlHelper.tsx": {
+		"prefix": "demo2-weightcontrolhelper-react",
+		"body": ["import * as React from 'react';","import { ɵComponentDef, ɵmarkDirty, ɵrenderComponent, ɵNG_COMPONENT_DEF, SimpleChange, SimpleChanges } from '@angular/core';","import { Subscription } from 'rxjs';","import { WeightControlHelperComponent } from './weight-control-helper.component';","","export class WeightControlHelper extends React.Component<any, any> {","  private ngComponent: any;","  private componentDef: ɵComponentDef<any>;","  private selector: string;","  private changedProps = new Set<string>();","  private subscriptions: Subscription[] = [];","  private ngComponentClass = WeightControlHelperComponent;","","  constructor(props) {","    super(props);","","    // TODO demo2-constructor","  }","","  // TODO demo2-didmount","","  // TODO demo2-outputs-unsubscribe","","  // TODO demo2-didupdate-inputs","","  // TODO demo2-render","}"]
+	},
+	"Write demo2 ng-helper warning logic": {
+		"prefix": "demo2-helper-warning-logic",
+		"body": ["constructor() {","  setInterval(() => {","    if (this.calorie >= 1000) {","      this.warning.emit('Stop eating or die!');","    }","  }, 1000);","}"]
+	},
+	"Write demo2 render ng-helper inside React": {
+		"prefix": "demo2-use-ng-helper",
+		"body": ["<p>","  <WeightControlHelper calorie={this.state.calorie} warning={(message) => console.warn(message)} />","</p>"]
+	}
+}
